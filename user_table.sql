@@ -53,16 +53,3 @@ INSERT INTO `user_table` (`u_id`, `u_name`, `u_acco`, `u_brith`, `u_email`, `u_p
 ALTER TABLE `user_table`
   ADD PRIMARY KEY (`u_id`);
 COMMIT;
-
-
--- CREATE
-
-
--- read
-
-
--- update
-
-
--- delete
-
