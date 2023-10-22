@@ -1,6 +1,7 @@
 <?php
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/json; charset=utf-8');
+
   get_db();
 
   function get_db() {
@@ -32,7 +33,6 @@
         $object->tel = $row["u_tel"];
         array_push($jsonObj, $object);
       }
-      // debug_to_console($jsonObj);
       gen_http_resp($jsonObj);
     } else {
       $resp = new stdClass();
@@ -47,7 +47,7 @@
     echo json_encode($data);
   }
 
-  // function debug_to_console($data) {
-  //   echo "<script>console.log(JSON.parse('" . json_encode($data) . "'));</script>";
-  // }
+  function debug_to_console($data) {
+    echo "<script>console.log(JSON.parse('" . json_encode($data) . "'));</script>";
+  }
 ?>
