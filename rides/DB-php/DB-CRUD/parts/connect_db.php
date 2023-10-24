@@ -7,8 +7,8 @@ $db_name = "rides";#學校的
 // 使用者名稱
 $db_user = "root";
 // 使用者密碼
-$db_pass = "";#學校的
-// $db_pass = "123456";#家裡的
+// $db_pass = "";#學校的
+$db_pass = "123456";#家裡的
 
 
 # data source name
