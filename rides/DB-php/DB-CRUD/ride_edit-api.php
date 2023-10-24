@@ -69,7 +69,6 @@ $sql = "UPDATE `amusement_ride` SET
 `amusement_ride_latitude`=?,
 `ride_category_id`=?,
 `thriller_rating`=?,
-`created_at`=NOW(),
 `ride_support_id`=?,
 `theme_id`=?,
 `amusement_ride_description`=?
@@ -86,8 +85,9 @@ $stmt->execute([
   $thriller_rating,
   $ride_support_id,
   $theme_id,
-  $amusement_ride_id,
-  $amusement_ride_description
+  $amusement_ride_description,
+  $amusement_ride_id
+  
 ]);
 
 $output['rowCount'] = $stmt->rowCount();

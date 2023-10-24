@@ -2,6 +2,7 @@
 require './parts/connect_db.php';
 $pageName='list';
 $title='資料清單';
+$partName='ride';
 $formName='ride';
 $formTitle='設施介紹';
 
@@ -48,6 +49,7 @@ $rows = $pdo->query($sql)->fetchAll();
 ?>
 
 <?php include "./parts/html_head.php"?>
+<?php include "./parts/four_part_navbar.php"?>
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 
