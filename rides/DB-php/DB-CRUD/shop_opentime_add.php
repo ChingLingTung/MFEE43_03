@@ -2,11 +2,13 @@
 require './parts/connect_db.php';
 $pageName='add';
 $title='新增資料';
+$partName='ride';
 $formName='shop_opentime';
 $formTitle='商店營業時間';
 ?>
 
 <?php include "./parts/html_head.php"?>
+<?php include "./parts/four_part_navbar.php"?>
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 

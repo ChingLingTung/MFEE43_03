@@ -4,6 +4,7 @@ require './parts/connect_db.php';
 // 取得資料的主鍵，若此資料主鍵存在則轉成整數，沒有則將值設定為0
 $pageName='edit';
 $title='編輯';
+$partName='ride';
 $formName='ride_support';
 $formTitle='支援種類';
 
@@ -28,6 +29,7 @@ if (empty($ride_support_id)) {
 ?>
 
 <?php include "./parts/html_head.php"?>
+<?php include "./parts/four_part_navbar.php"?>
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 

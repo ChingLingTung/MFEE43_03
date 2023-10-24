@@ -3,6 +3,7 @@
 require './parts/connect_db.php';
 $pageName='edit';
 $title='編輯';
+$partName='ride';
 $formName='ride';
 $formTitle='設施介紹';
 // 取得資料的主鍵，若此資料主鍵存在則轉成整數，沒有則將值設定為0
@@ -43,6 +44,7 @@ if (empty($amusement_ride_id)) {
 ?>
 
 <?php include "./parts/html_head.php"?>
+<?php include "./parts/four_part_navbar.php"?>
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 
@@ -227,7 +229,7 @@ if (empty($amusement_ride_id)) {
             if (data.success) {
                 alert('資料編輯成功');
                 // 後端的php程式不做跳轉
-                // location.href = "./list.php"
+                location.href = "./ride_list.php"
                 }else {
                   // 若資料和原本的一樣沒有更動
                   alert('資料沒有修改');

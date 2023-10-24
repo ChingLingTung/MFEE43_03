@@ -2,6 +2,7 @@
 require './parts/connect_db.php';
 $pageName='add';
 $title='新增資料';
+$partName='ride';
 $formName='ride';
 $formTitle='設施介紹';
 
@@ -24,6 +25,7 @@ enum ThrillerRating:string{
 
 
 <?php include "./parts/html_head.php"?>
+<?php include "./parts/four_part_navbar.php"?>
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 

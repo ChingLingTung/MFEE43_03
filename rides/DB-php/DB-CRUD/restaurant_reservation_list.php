@@ -2,6 +2,7 @@
 require './parts/connect_db.php';
 $pageName='list';
 $title='資料清單';
+$partName='ride';
 $formName='restaurant_reservation';
 $formTitle='餐廳預約';
 // 若page值已被設定，轉成整數，若沒設定，則將其設為1
@@ -47,6 +48,7 @@ if ($totalRows > 0) {
 ?>
 
 <?php include "./parts/html_head.php"?>
+<?php include "./parts/four_part_navbar.php"?>
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 
