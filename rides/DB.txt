@@ -1,0 +1,240 @@
+-- rides.amusement_ride definition
+
+CREATE TABLE `amusement_ride` (
+  `amusement_ride_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amusement_ride_name` varchar(100) NOT NULL,
+  `amusement_ride_img` blob NOT NULL,
+  `amusement_ride_longitude` varchar(100) NOT NULL,
+  `amusement_ride_latitude` varchar(100) NOT NULL,
+  `ride_category_id` int(11) NOT NULL,
+  `thriller_rating` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `support_id` int(11) NOT NULL,
+  `theme_id` int(11) NOT NULL,
+  `theme_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`amusement_ride_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施表格';
+
+-- rides.maintenance definition
+
+CREATE TABLE `maintenance` (
+  `maintenance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amusement_ride_id` int(11) NOT NULL,
+  `maintenance_category_id` int(11) NOT NULL,
+  `maintenance_begin` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `maintenance_end` timestamp NOT NULL DEFAULT current_timestamp(),
+  `maintenance_result` varchar(100) NOT NULL,
+  `update_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`maintenance_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施維護詳情';
+
+-- rides.maintenance_category definition
+
+CREATE TABLE `maintenance_category` (
+  `maintenance_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `maintenance_category_name` varchar(100) NOT NULL,
+  `maintenance_category_des` varchar(100) NOT NULL,
+  PRIMARY KEY (`maintenance_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='維修類型';
+
+-- rides.ride_category definition
+
+CREATE TABLE `ride_category` (
+  `ride_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ride_category_name` varchar(100) NOT NULL,
+  `ride_category_description` varchar(100) NOT NULL,
+  `height_requirement` int(11) NOT NULL,
+  PRIMARY KEY (`ride_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施類型';
+
+-- rides.ride_support definition
+
+CREATE TABLE `ride_support` (
+  `amusement_ride_id` int(11) NOT NULL,
+  `support_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施對應特殊支援';
+
+-- rides.support definition
+
+CREATE TABLE `support` (
+  `support_id` int(11) NOT NULL AUTO_INCREMENT,
+  `support_category_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`support_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施特殊支援類型';
+
+--20231018
+ALTER TABLE rides.amusement_ride MODIFY COLUMN amusement_ride_img VARCHAR(100) NOT NULL;
+
+-- rides.shop definition
+
+CREATE TABLE `shop` (
+  `shop_id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(100) NOT NULL,
+  `shop_longitude` varchar(100) NOT NULL,
+  `shop_latitude` varchar(100) NOT NULL,
+  `shop_img` varchar(100) NOT NULL,
+  `shop_type_id` int(11) NOT NULL,
+  `shop_type_name` varchar(100) NOT NULL,
+  `seat` int(11) NOT NULL,
+  `eating_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`shop_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店的表格';
+-- rides.shop_opentime definition
+
+CREATE TABLE `shop_opentime` (
+  `shop_id` int(11) NOT NULL,
+  `open_week` varchar(100) NOT NULL,
+  `open_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `close_time` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店營業時間';
+-- rides.restaurant_reservation definition
+
+CREATE TABLE `restaurant_reservation` (
+  `restaurant_reservation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `adult` int(11) NOT NULL,
+  `child` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `starting_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`restaurant_reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='餐廳預約系統';
+--新增設施描述欄位
+ALTER TABLE rides.amusement_ride ADD amusement_ride_description varchar(100) NOT NULL;
+-- 10/20
+-- rides.amusement_ride definition
+
+CREATE TABLE `amusement_ride` (
+  `amusement_ride_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amusement_ride_name` varchar(100) NOT NULL,
+  `amusement_ride_img` varchar(100) NOT NULL,
+  `amusement_ride_longitude` varchar(100) NOT NULL,
+  `amusement_ride_latitude` varchar(100) NOT NULL,
+  `ride_category_id` int(11) NOT NULL,
+  `thriller_rating` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `support_id` int(11) NOT NULL,
+  `theme_id` int(11) NOT NULL,
+  `theme_name` varchar(100) NOT NULL,
+  `amusement_ride_description` varchar(255) NOT NULL,
+  PRIMARY KEY (`amusement_ride_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=96 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施表格';
+-- rides.maintenance definition
+
+CREATE TABLE `maintenance` (
+  `maintenance_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amusement_ride_id` int(11) NOT NULL,
+  `maintenance_category_id` int(11) NOT NULL,
+  `maintenance_begin` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `maintenance_end` timestamp NOT NULL DEFAULT current_timestamp(),
+  `maintenance_result` varchar(100) NOT NULL,
+  `update_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `maintenance_category_name` varchar(100) NOT NULL,
+  `amusement_ride_name` varchar(100) NOT NULL,
+  PRIMARY KEY (`maintenance_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施維護詳情';
+-- rides.maintenance_category definition
+
+CREATE TABLE `maintenance_category` (
+  `maintenance_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `maintenance_category_name` varchar(100) NOT NULL,
+  `maintenance_category_description` varchar(100) NOT NULL,
+  PRIMARY KEY (`maintenance_category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='維修類型';
+-- rides.restaurant_reservation definition
+
+CREATE TABLE `restaurant_reservation` (
+  `restaurant_reservation_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `shop_id` int(11) NOT NULL,
+  `shop_name` varchar(100) NOT NULL,
+  `adult` int(11) NOT NULL,
+  `child` int(11) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `starting_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`restaurant_reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='餐廳預約系統';
+-- rides.ride_category definition
+
+CREATE TABLE `ride_category` (
+  `ride_category_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ride_category_name` varchar(100) NOT NULL,
+  `ride_category_description` varchar(100) NOT NULL,
+  `height_requirement` int(11) NOT NULL,
+  PRIMARY KEY (`ride_category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施類型';
+-- rides.ride_support definition
+
+CREATE TABLE `ride_support` (
+  `ride_support_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ride_support_name` varchar(100) NOT NULL,
+  `ride_support_description` varchar(255) NOT NULL,
+  PRIMARY KEY (`ride_support_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施特殊支援類型';
+-- rides.shop definition
+
+CREATE TABLE `shop` (
+  `shop_id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(100) NOT NULL,
+  `shop_longitude` varchar(100) NOT NULL,
+  `shop_latitude` varchar(100) NOT NULL,
+  `shop_img` varchar(100) NOT NULL,
+  `shop_type_id` int(11) NOT NULL,
+  `shop_type_name` varchar(100) NOT NULL,
+  `seat` int(11) NOT NULL,
+  `eating_time` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`shop_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店的表格';
+-- rides.shop_opentime definition
+
+CREATE TABLE `shop_opentime` (
+  `shop_opentime_id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_id` int(11) NOT NULL,
+  `open_week` varchar(100) NOT NULL,
+  `open_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  `close_time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`shop_opentime_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='商店營業時間';
+
+-- rides.theme definition 1021
+
+CREATE TABLE `theme` (
+  `theme_id` int NOT NULL AUTO_INCREMENT,
+  `theme_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  PRIMARY KEY (`theme_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='設施主題';
+
+-- 學校的
+
+CREATE TABLE `theme` (
+  `theme_id` int NOT NULL AUTO_INCREMENT,
+  `theme_name` varchar(255)  NOT NULL,
+  PRIMARY KEY (`theme_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='設施主題';
+
+-- 1022
+
+-- rides.amusement_ride definition刪除主題名稱
+
+CREATE TABLE `amusement_ride` (
+  `amusement_ride_id` int NOT NULL AUTO_INCREMENT,
+  `amusement_ride_name` varchar(100) COLLATE utf8mb3_bin NOT NULL,
+  `amusement_ride_img` varchar(100) COLLATE utf8mb3_bin NOT NULL,
+  `amusement_ride_longitude` varchar(100) COLLATE utf8mb3_bin NOT NULL,
+  `amusement_ride_latitude` varchar(100) COLLATE utf8mb3_bin NOT NULL,
+  `ride_category_id` int NOT NULL,
+  `thriller_rating` int NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `support_id` int NOT NULL,
+  `theme_id` int NOT NULL,
+  `amusement_ride_description` varchar(255) COLLATE utf8mb3_bin NOT NULL,
+  PRIMARY KEY (`amusement_ride_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_bin COMMENT='設施表格';
+
+--1023刪除欄位
+
+ALTER TABLE rides.shop DROP COLUMN shop_type_name;
+
+ALTER TABLE rides.maintenance DROP COLUMN maintenance_category_name;
+ALTER TABLE rides.maintenance DROP COLUMN amusement_ride_name;
+
