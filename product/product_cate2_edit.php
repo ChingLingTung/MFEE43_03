@@ -44,10 +44,13 @@ $title = '編輯資料';
                     <h5 class="card-title">編輯資料</h5>
                     <form name="form1" onsubmit="sendData(event)">
                         <div class="card-title">商品類別</div>
+                        <div>
+                            <input type="text" name='PDcategory_id' value="<?= $PDcategory_id ?>" hidden>
+                        </div>
                         <div class="mb-3">編輯產品類別</div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">主分類</span>
-                            <select class="form-select" name="PDcategory_id" id="cate1" onchange="generateCate2List()">
+                            <select class="form-select" name="parent_PDcategory_id" id="cate1" onchange="generateCate2List()">
                                 <?php foreach ($rows as $r) : ?>
                                     <?php if ($r['parent_PDcategory_id'] == 0) : ?>
                                         <option value="<?= $r['PDcategory_id'] ?>" <?php if ($r['PDcategory_id'] == $row['parent_PDcategory_id']) : ?> selected<?php endif; ?>><?= $r['PDcategory_name'] ?></option>
@@ -57,7 +60,7 @@ $title = '編輯資料';
                         </div>
                         <div class="mb-3">
                             <label for="PDcategory_name" class="form-label">類別名稱</label>
-                            <input type="text" class="form-control" id="PDcategory_name" name="PDcategory_name">
+                            <input type="text" class="form-control" id="PDcategory_name" name="PDcategory_name" value="<?= $row['PDcategory_name']?>">
                             <div class="form-text"></div>
                         </div>
                         <button type="submit" class="btn btn-primary">確定</button>
