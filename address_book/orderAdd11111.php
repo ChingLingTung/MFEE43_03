@@ -3,10 +3,14 @@ require './parts/connect_db.php';
 
 $pageName = 'orderAdd';
 $title = '訂單票券';
-$partName ='ticket';
+$partName = 'ticket';
 
 $sql = "SELECT * FROM orderstate";
+$sql1 = "SELECT * FROM ticketcategory1";
+$sql2 = "SELECT * FROM ticketcategory2";
 $rows = $pdo->query($sql)->fetchAll();
+$rows1 = $pdo->query($sql1)->fetchAll();
+$rows2 = $pdo->query($sql2)->fetchAll();
 
 
 ?>
@@ -32,10 +36,29 @@ $rows = $pdo->query($sql)->fetchAll();
               <input type="text" class="form-control" id="user_name" name="user_name">
               <div class="form-text"></div>
             </div>
-            <div class="mb-3">
-              <label for="t_name" class="form-label">票券名稱</label>
-              <input type="text" class="form-control" id="t_name" name="t_name">
-              <div class="form-text"></div>
+            <div class="mb-3">新增票券類別</div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">票券類別</span>
+              <select class="form-select" name="tc1_id" id="cate1" onchange="generateCate2List()">
+                <?php foreach ($rows1 as $r1) :
+                  // if ($r1['tc1_id'] == '3') : 
+                ?>
+                  <option value="<?= $r1['tc1_id'] ?>"><?= $r1['tc1_name'] ?></option>
+                <?php
+                // endif;
+                endforeach ?>
+              </select>
+            </div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">票券名稱</span>
+              <select class="form-select" name="tc2_id" id="cate2"></select>
+              <?php foreach ($rows1 as $r1) :
+                // if ($r1['tc1_id'] == '3') : 
+              ?>
+                <option value="<?= $r1['tc2_id'] ?>"><?= $r1['tc2_name'] ?></option>
+              <?php
+              // endif;
+              endforeach ?>
             </div>
             <div class="mb-3">
               <label for="amount" class="form-label">金額</label>
@@ -169,5 +192,37 @@ $rows = $pdo->query($sql)->fetchAll();
       })
       .catch(ex => console.log(ex))
   }
+
+  const initVals = {
+    cate1: 1,
+    cate2: 9
+  };
+
+  const cates = <?= json_encode($rows, JSON_UNESCAPED_UNICODE) ?>;
+
+  const cate1 = document.querySelector('#cate1')
+  const cate2 = document.querySelector('#cate2')
+
+
+
+  function generateCate2List() { //呼叫generateCate2List()
+    const cate1Val = cate1.value; // 主分類的值
+
+    let str = "";
+    //b;
+    for (let item of cates) {
+      if (+item.tc1_id === +cate1Val) { //+ cate1轉成字串
+        str += `<option value="${item.tc2_id}">${item.tc2_name}</option>`;
+        //a;
+      }
+    }
+
+    cate2.innerHTML = str;
+
+  }
+
+  cate1.value = initVals.cate1; // 設定第一層的初始值
+  generateCate2List(); // 生第二層
+  cate2.value = initVals.cate2; // 設定第二層的初始值
 </script>
 <?php include './parts/html_foot.php' ?>
