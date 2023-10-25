@@ -2,7 +2,8 @@
 // 主機名稱
 $db_host = "localhost";
 // 資料庫名稱
-$db_name = "rides";#學校的
+// $db_name = "rides";#學校的
+$db_name = "all";
 
 // 使用者名稱
 $db_user = "root";

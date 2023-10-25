@@ -57,9 +57,9 @@ enum ThrillerRating:string{
 }
 
 // sql語法
-$sql = "SELECT * FROM amusement_ride ORDER BY amusement_ride_id DESC LIMIT 0, 20";
+// $sql = "SELECT * FROM amusement_ride ORDER BY amusement_ride_id DESC LIMIT %s, %s";
 // 用php物件變數
-$rows = $pdo->query($sql)->fetchAll();
+// $rows = $pdo->query($sql)->fetchAll();
 ?>
 
 <?php include "./parts/html_head.php"?>
@@ -211,6 +211,7 @@ $('#ride_form').validator().on('submit', function(e) {
         if (e.isDefaultPrevented()) { // 未驗證通過 則不處理
         return;
         } else { // 通過後送出表單
+            e.preventDefault();
             const fd = new FormData(document.ride_form);
             // 設定ajax的送出方式fetch('資料運送的目的地', {送出方式}
             fetch('ride_search-api.php', {
@@ -221,9 +222,7 @@ $('#ride_form').validator().on('submit', function(e) {
             }).then(r => r.json())
             // 取得轉譯後的原始data資料
             .then(data => {
-                console.log({
-                data
-                });
+                console.log(data.postData);
                 // 如果資料新增成功給予提示
                 if (data.success) {
                 e.preventDefault(); // 防止原始 form 提交表單

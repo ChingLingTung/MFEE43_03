@@ -11,6 +11,7 @@ $output = [
   'success' => false,
   // 設定若有錯誤，報錯格式為何，可以是字串('error' => ''),也可以是陣列(如下所示)
   'errors' => [],
+  'response' => []
 ];
 
 // 在檔頭告訴用戶端,傳送的這份資料格式為 JSON
@@ -42,6 +43,8 @@ $parameters = [];
 if (!empty($ride_category_id)) {
     $conditions[] = 'ride_category_id = ?';
     $parameters[] = $ride_category_id;
+    $output['response']['ride_category_id'] = "沒有篩選";
+
 }
 
 if (!empty($thriller_rating)) {
@@ -60,7 +63,7 @@ if (!empty($theme_id)) {
 }
 
 // sql語法設定，一個欄位對應一個問號，NOW()是sql本身可以取得當下時間的方法，取得時間直接帶入欄位內容
-$sql = "SELECT * FROM `amusement_ride` "
+$sql = "SELECT * FROM `amusement_ride` ";
 
 $sql .= " where ".implode(" AND ", $conditions);
 
@@ -73,6 +76,7 @@ $stmt->execute($parameters);
 // rowCount()的值會顯示0，新增資料成功的話rowCount()的值會顯示1
 // 檢查輸出是否成功，並將回傳(rowCount()轉換而成)的布林值
 $output['success'] = boolval($stmt->rowCount());
+$output['sql']= $sql;
 $output['resultData'] = $stmt->fetchAll();
 // 轉成JSON檔檢視
 echo json_encode($output);
