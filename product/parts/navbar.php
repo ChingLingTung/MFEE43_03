@@ -21,13 +21,13 @@ if (!isset($pageName)) {
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link <?= $pageName == 'list' ? 'active' : '' ?>" href="list.php">產品列表</a>
+            <a class="nav-link <?= $pageName == 'list' ? 'active' : '' ?>" href="product_list.php">產品列表</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= $pageName == 'add' ? 'active' : '' ?>" href="add.php">新增產品</a>
+            <a class="nav-link <?= $pageName == 'add' ? 'active' : '' ?>" href="product_add.php">新增產品</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link <?= $pageName == 'cate2_list' ? 'active' : '' ?>" href="cate2_list.php">產品類別列表</a>
+            <a class="nav-link <?= $pageName == 'cate2_list' ? 'active' : '' ?>" href="product_cate2_list.php">產品類別列表</a>
           </li>
           <li class="nav-item">
             <a class="nav-link <?= $pageName == 'style_list' ? 'active' : '' ?>" href="style_list.php">產品造型列表</a>
