@@ -2,6 +2,7 @@
 require './parts/connect_db.php';
 $pageName = 'orderList';
 $title = '訂單管理';
+$partName = 'ticket';
 
 
 $perPage = 10; //一頁最多有幾筆
@@ -28,10 +29,12 @@ if ($totalRows > 0) {
     exit; #直接結束這支php
   }
   $sql = sprintf(
-    "SELECT * FROM orderlist JOIN orderstate on orderlist.orderState_id = orderState.orderState_id ORDER BY order_id DESC LIMIT %s, %s",
+    "SELECT * FROM orderlist JOIN orderstate on orderlist.orderState_id = orderState.orderState_id JOIN ticketcategory2 t2 ON orderlist.tc2_id = t2.tc2_id && orderlist.amount = t2.tc_amount
+    ORDER BY order_id DESC LIMIT %s, %s",
     ($page - 1) * $perPage,
     $perPage
   );
+
   $rows = $pdo->query($sql)->fetchAll();
 }
 
@@ -39,6 +42,7 @@ if ($totalRows > 0) {
 
 ?>
 <?php include './parts/html_head.php' ?>
+<?php include './parts/main_part.php' ?>
 <?php include './parts/navbar.php' ?>
 
 <div class="container">
@@ -92,7 +96,7 @@ if ($totalRows > 0) {
             <tr>
               <td><?= $r['order_id'] ?></td>
               <td><?= $r['user_name'] ?></td>
-              <td><?= $r['t_name'] ?></td>
+              <td><?= $r['tc2_name'] ?></td>
               <td><?= $r['amount'] ?></td>
               <td><?= $r['orderTime'] ?></td>
               <td><?= $r['stateName'] ?></td>
