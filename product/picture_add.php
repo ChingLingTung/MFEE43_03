@@ -2,6 +2,7 @@
 
 require './parts/connect_db.php';
 $title = '新增商品照片';
+$partName ='product';
 $pageName = 'product_picture_add';
 
 
@@ -12,6 +13,7 @@ $rows4 = $pdo->query($sql4)->fetchAll();
 #echo json_encode($rows4, JSON_UNESCAPED_UNICODE);
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 
 <div class="container">
@@ -75,7 +77,7 @@ $rows4 = $pdo->query($sql4)->fetchAll();
                     data
                 });
                 if (data.success) {
-                    alert('資料新增成功');
+                    alert('照片新增成功');
                     location.href = "./picture_list.php"
                 } else {
                     //alert('發生問題');

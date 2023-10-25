@@ -1,16 +1,16 @@
 <?php
 
 require './parts/connect_db.php';
-$title = '新增商品造型';
+$title = '新增商品類別';
 $partName ='product';
-$pageName = 'product_style_add';
+$pageName = 'product_cate2_add';
 
 
-$sql2 = "SELECT * FROM product_style";
 
-$rows2 = $pdo->query($sql2)->fetchAll();
+$sql1 = "SELECT * FROM product_category";
+$rows = $pdo->query($sql1)->fetchAll();
 
-#echo json_encode($rows2, JSON_UNESCAPED_UNICODE);
+#echo json_encode($rows3, JSON_UNESCAPED_UNICODE);
 ?>
 <?php include './parts/html-head.php' ?>
 <?php include './parts/main_part1.php' ?>
@@ -22,9 +22,22 @@ $rows2 = $pdo->query($sql2)->fetchAll();
             <div class="card">
                 <div class="card-body">
                     <form name="form1" onsubmit="sendData(event)">
+                        <div class="mb-3">新增產品類別</div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">主分類</span>
+                            <select class="form-select" name="parent_PDcategory_id" id="cate1">
+                                <option value="0">沒有主分類</option>
+                                <?php foreach ($rows as $r) :
+                                    if ($r['parent_PDcategory_id'] == '0') : ?>
+                                        <option value="<?= $r['PDcategory_id'] ?>"><?= $r['PDcategory_name'] ?></option>
+                                <?php
+                                    endif;
+                                endforeach ?>
+                            </select>
+                        </div>
                         <div class="mb-3">
-                            <label for="PDstyle_name" class="form-label">新增造型</label>
-                            <input type="text" class="form-control" id="PDstyle_name" name="PDstyle_name">
+                            <label for="PDcategory_name" class="form-label">類別名稱</label>
+                            <input type="text" class="form-control" id="PDcategory_name" name="PDcategory_name">
                             <div class="form-text"></div>
                         </div>
                         <button type="submit" class="btn btn-primary">確定</button>
@@ -33,13 +46,11 @@ $rows2 = $pdo->query($sql2)->fetchAll();
             </div>
         </div>
     </div>
-
-
 </div>
 
 <?php include './parts/scripts.php' ?>
 <script>
-    const PDstyle_name_in = document.form1.PDstyle_name;
+    const PDcategory_name_in = document.form1.PDcategory_name;
     // const email_in = document.form1.email;
     // const mobile_in = document.form1.mobile;
     // const fields = [name_in, email_in, mobile_in];
@@ -60,10 +71,10 @@ $rows2 = $pdo->query($sql2)->fetchAll();
         e.preventDefault(); // 不要讓表單以傳統的方式送出
 
         // 外觀要回復原來的狀態
-        PDstyle_name_in.style.border = '1px solid #CCCCCC';
-        PDstyle_name_in.nextElementSibling.innerHTML = '';
+        // PDcolor_name_in.style.border = '1px solid #CCCCCC';
+        // PDcolor_name_in.nextElementSibling.innerHTML = '';
         // fields.forEach(field => {
-        //   field.style.border = '1px solid #CCCCCC';
+        //   field.color.border = '1px solid #CCCCCC';
         //   field.nextElementSibling.innerHTML = '';
         // })    
 
@@ -76,7 +87,7 @@ $rows2 = $pdo->query($sql2)->fetchAll();
         /*
         if (name_in.value.length < 2) {
           isPass = false;
-          name_in.style.border = '2px solid red';
+          name_in.color.border = '2px solid red';
           name_in.nextElementSibling.innerHTML = '請填寫正確的姓名';
           //属性返回指定元素之后的下一个兄弟元素（相同节点树层中的下一个元素节点）
         }  
@@ -84,7 +95,7 @@ $rows2 = $pdo->query($sql2)->fetchAll();
         //判斷email 如果不是對的內容
         if (!validateEmail(email_in.value)) {
           isPass = false;
-          email_in.style.border = '2px solid red';
+          email_in.color.border = '2px solid red';
           email_in.nextElementSibling.innerHTML = '請填寫正確的 Email';
         }
         */
@@ -92,7 +103,7 @@ $rows2 = $pdo->query($sql2)->fetchAll();
         // 非必填  如果有寫內容且內容錯誤 才要跳出錯誤訊息
         // if (mobile_in.value && !validateMobile(mobile_in.value)) {
         //   isPass = false;
-        //   mobile_in.style.border = '2px solid red';
+        //   mobile_in.color.border = '2px solid red';
         //   mobile_in.nextElementSibling.innerHTML = '請填寫正確的手機號碼';
         // }
 
@@ -103,7 +114,7 @@ $rows2 = $pdo->query($sql2)->fetchAll();
         // 建立只有資料的表單
         const fd = new FormData(document.form1);
 
-        fetch('style_add-api.php', {
+        fetch('product_cate2_add-api.php', {
                 method: 'POST',
                 body: fd, // 送出的格式會自動是 multipart/form-data
             }).then(r => r.json())
@@ -113,14 +124,14 @@ $rows2 = $pdo->query($sql2)->fetchAll();
                 });
                 if (data.success) {
                     alert('資料新增成功');
-                    location.href = "./style_list.php"
+                    location.href = "./product_cate2_list.php"
                 } else {
                     //alert('發生問題');
                     for (let n in data.errors) {
                         console.log(`n: ${n}`);
                         if (document.form1[n]) {
                             const input = document.form1[n];
-                            input.style.border = '2px solid red';
+                            input.color.border = '2px solid red';
                             input.nextElementSibling.innerHTML = data.errors[n];
                         }
                     }

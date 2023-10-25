@@ -2,6 +2,7 @@
 
 require './parts/connect_db.php';
 $title = '新增商品顏色';
+$partName ='product';
 $pageName = 'product_color_add';
 
 
@@ -12,6 +13,7 @@ $rows3 = $pdo->query($sql3)->fetchAll();
 #echo json_encode($rows3, JSON_UNESCAPED_UNICODE);
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 
 <div class="container">
@@ -110,7 +112,7 @@ $rows3 = $pdo->query($sql3)->fetchAll();
                     data
                 });
                 if (data.success) {
-                    alert('資料新增成功');
+                    alert('顏色新增成功');
                     location.href = "./color_list.php"
                 } else {
                     //alert('發生問題');

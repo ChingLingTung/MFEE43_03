@@ -3,27 +3,29 @@
 require './parts/connect_db.php';
 
 // 取得資料的 PK
-$PDstyle_id = isset($_GET['PDstyle_id']) ? intval($_GET['PDstyle_id']) : 0;
+$PDcategory_id = isset($_GET['PDcategory_id']) ? intval($_GET['PDcategory_id']) : 0;
 
-if (empty($PDstyle_id)) {
-    header('Location: style_list.php');
+if (empty($PDcategory_id)) {
+    header('Location: product_cate2_list.php');
     exit; // 結束程式
 }
 
-$sql2 = "SELECT * FROM product_style WHERE PDstyle_id={$PDstyle_id}";
-$row = $pdo->query($sql2)->fetch();
+$sql = "SELECT * FROM product_category
+WHERE PDcategory_id={$PDcategory_id}";
+
+$row = $pdo->query($sql)->fetch();
 if (empty($row)) {
-    header('Location: style_list.php');
+    header('Location: product_cate2_list.php');
     exit; // 結束程式
 }
 
-$sql2 = "SELECT * FROM product_style";
-$rows2 = $pdo->query($sql2)->fetchAll();
+$sql1 = "SELECT * FROM product_category";
+$rows = $pdo->query($sql1)->fetchAll();
 
 
-#echo json_encode($row, JSON_UNESCAPED_UNICODE);
+
 $partName ='product';
-$title = '編輯造型資料';
+$title = '編輯資料';
 
 ?>
 <?php include './parts/html-head.php' ?>
@@ -38,21 +40,28 @@ $title = '編輯造型資料';
     <div class="row">
         <div class="col-6">
             <div class="card">
-
                 <div class="card-body">
+                    <h5 class="card-title">編輯資料</h5>
                     <form name="form1" onsubmit="sendData(event)">
-                        <input type="hidden" name="PDstyle_id" value="<?= $row['PDstyle_id'] ?>">
-
-                        <div class="card-title">編輯造型名稱</div>
+                        <div class="card-title">商品類別</div>
+                        <div class="mb-3">編輯產品類別</div>
                         <div class="input-group mb-3">
-                            <label for="PDstyle_name" class="form-label"></label>
-                            <input type="text" class="form-control" id="PDstyle_name" name="PDstyle_name" value="<?= htmlentities($row['PDstyle_name']) ?>">
+                            <span class="input-group-text">主分類</span>
+                            <select class="form-select" name="PDcategory_id" id="cate1" onchange="generateCate2List()">
+                                <?php foreach ($rows as $r) : ?>
+                                    <?php if ($r['parent_PDcategory_id'] == 0) : ?>
+                                        <option value="<?= $r['PDcategory_id'] ?>" <?php if ($r['PDcategory_id'] == $row['parent_PDcategory_id']) : ?> selected<?php endif; ?>><?= $r['PDcategory_name'] ?></option>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="PDcategory_name" class="form-label">類別名稱</label>
+                            <input type="text" class="form-control" id="PDcategory_name" name="PDcategory_name">
                             <div class="form-text"></div>
                         </div>
-
                         <button type="submit" class="btn btn-primary">確定</button>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -117,7 +126,7 @@ $title = '編輯造型資料';
         // 建立只有資料的表單
         const fd = new FormData(document.form1);
 
-        fetch('style_edit-api.php', {
+        fetch('product_cate2_edit-api.php', {
                 method: 'POST',
                 body: fd, // 送出的格式會自動是 multipart/form-data
             }).then(r => r.json())
@@ -127,7 +136,7 @@ $title = '編輯造型資料';
                 });
                 if (data.success) {
                     alert('資料編輯成功');
-                    location.href = "./style_list.php"
+                    location.href = "./product_cate2_list.php"
                 } else {
                     alert('資料沒有修改');
                     for (let n in data.errors) {
@@ -144,5 +153,61 @@ $title = '編輯造型資料';
             .catch(ex => console.log(ex))
     }
 
+    // 新增商品類別選單
+    // 假設我希望第一層初始值為第二個
+    // const initVals = {
+    //     // cate1: 1,
+    //     // cate2: 11
+    // };
+
+    const cates = <?= json_encode($rows, JSON_UNESCAPED_UNICODE) ?>;
+
+    const cate1 = document.querySelector('#cate1')
+    const cate2 = document.querySelector('#cate2')
+
+    function generateCate2List() { //呼叫generateCate2List()
+        const cate1Val1 = cate1.value; // 主分類的值
+
+        let str = "";
+        //b;
+        for (let item of cates) {
+            if (+item.parent_PDcategory_id === +cate1Val1) { //+ cate1轉成字串
+                str += `<option value="${item.PDcategory_id}">${item.PDcategory_name}</option>`;
+                //a;
+            }
+        }
+
+        cate2.innerHTML = str;
+
+    }
+    // cate1.value = initVals.cate1; // 設定第一層的初始值
+    // generateCate2List(); // 生第二層
+    // cate2.value = initVals.cate2; // 設定第二層的初始值
+
+    let uploadFieldId; // 欄位 Id
+    // 中轉站
+    function triggerUpload(fid) {
+        uploadFieldId = fid;
+        document.picform.avatar.click();
+    }
+
+    function uploadFile() {
+        const fd = new FormData(document.picform);
+        fetch("upload-img-api.php", {
+                method: "POST",
+                body: fd, // enctype="multipart/form-data"
+            })
+            .then((r) => r.json())
+            .then((data) => {
+                if (data.success) {
+                    if (uploadFieldId) {
+                        document.form1[uploadFieldId].value = data.file;
+                        document.querySelector(`#${uploadFieldId}_img`).src =
+                            "/my-proj/add+cate-HTML-1/uploads/" + data.file;
+                    }
+                }
+                uploadFieldId = null;
+            });
+    }
 </script>
 <?php include './parts/html-foot.php' ?>

@@ -1,8 +1,9 @@
 <?php
-require './parts/connect_db.php'; 
-$pageName = 'style_list';
+require './parts/connect_db.php';
+
+$pageName = 'cate2_list';
 $partName ='product';
-$title = '造型列表';
+$title = '類別列表';
 
 $perPage = 20; # 一頁最多有幾筆
 
@@ -13,7 +14,7 @@ if ($page < 1) {
 }
 
 
-$t_sql = "SELECT COUNT(1) FROM product_style";
+$t_sql = "SELECT COUNT(1) FROM product_category";
 
 # 總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
@@ -34,25 +35,25 @@ if ($totalRows > 0) {
         exit; # 直接結束這支 php
     }
 
-    // select * from ((product_style join product_style on product_style.PDstyle_id = product_style.PDstyle_id)
-    // join product_color on product_style.PDcolor_id = product_color.PDcolor_id)
-    // join product_category on product_style.PDcategory_id = Product_category.PDcategory_id;
+    // select * from ((product_category join product_category on product_category.PDcategory_id = product_category.PDcategory_id)
+    // join product_category on product_category.PDcategory_id = product_category.PDcategory_id)
+    // join product_category on product_category.PDcategory_id = Product_category.PDcategory_id;
 
 
     //   $sql = sprintf(
-    //     "SELECT * FROM product_style ORDER BY PDstyle_id DESC LIMIT %s, %s",
+    //     "SELECT * FROM product_category ORDER BY PDcategory_id DESC LIMIT %s, %s",
     //     ($page - 1) * $perPage,
     //     $perPage
 
     // );
-    $sql2 = sprintf(
-        "SELECT * FROM product_style ORDER BY PDstyle_id 
+    $sql1 = sprintf(
+        "SELECT * FROM product_category ORDER BY PDcategory_id 
         DESC LIMIT %s, %s",
         ($page - 1) * $perPage,
         $perPage
 
     );
-    $rows = $pdo->query($sql2)->fetchAll();
+    $rows = $pdo->query($sql1)->fetchAll();
 }
 
 
@@ -112,30 +113,32 @@ if ($totalRows > 0) {
     <!-- 總筆數/總頁數 -->
     <div><?= "$totalRows / $totalPages" ?></div>
 
-    <h2><?= $_SESSION['admin']['nickname'] ?> 您好</h2>
+    <!-- <h2><?= $_SESSION['admin']['nickname'] ?> 您好</h2> -->
 
     <div class="row">
         <div class="col">
-            <button class="btn btn-danger mb-3" type="submit"><a class="nav-link <?= $pageName == 'style' ? 'active' : '' ?>" href="style_add.php">新增產品造型</a></button>
+            <button class="btn btn-danger mb-3" type="submit"><a class="nav-link <?= $pageName == 'category' ? 'active' : '' ?>" href="product_cate2_add.php">新增產品類別</a></button>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th><i class="fa-solid fa-trash-can"></i></th>
                         <!-- <th scope="col">編號</th> -->
-                        <th scope="col">造型編號</th>
-                        <th scope="col">造型名稱</th>
+                        <th scope="col">類別子編號</th>
+                        <th scope="col">類別名稱</th>
+                        <th scope="col">類別父編號</th>
                         <th><i class="fa-solid fa-file-pen"></i></th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($rows as $r) : ?>
                         <tr>
-                            <th><a href="javascript: deleteItem(<?= $r['PDstyle_id'] ?>)">
+                            <th><a href="javascript: deleteItem(<?= $r['PDcategory_id'] ?>)">
                                     <i class="fa-solid fa-trash-can"></i>
                                 </a></th>
-                            <td><?= $r['PDstyle_id'] ?></td>
-                            <td><?= $r['PDstyle_name'] ?></td>
-                            <th><a href="style_edit.php?PDstyle_id=<?= $r['PDstyle_id'] ?>">
+                            <td><?= $r['PDcategory_id'] ?></td>
+                            <td><?= $r['PDcategory_name'] ?></td>
+                            <td><?= $r['parent_PDcategory_id'] ?></td>
+                            <th><a href="product_cate2_edit.php?PDcategory_id=<?= $r['PDcategory_id'] ?>">
                                     <i class="fa-solid fa-file-pen"></i>
                                 </a></th>
                         </tr>
@@ -152,9 +155,9 @@ if ($totalRows > 0) {
 
 <?php include './parts/scripts.php' ?>
 <script>
-    function deleteItem(PDstyle_id) {
-        if (confirm(`確定要刪除編號為 ${PDstyle_id} 的資料嗎?`)) {
-            location.href = 'style_delete.php?PDstyle_id=' + PDstyle_id;
+    function deleteItem(PDcategory_id) {
+        if (confirm(`確定要刪除編號為 ${PDcategory_id} 的資料嗎?`)) {
+            location.href = 'product_cate2_delete.php?PDcategory_id=' + PDcategory_id;
         }
     }
 </script>
