@@ -1,6 +1,7 @@
 <?php
-require './parts/connect_db.php';
+require './parts/connect_db.php'; 
 $pageName = 'style_list';
+$partName ='product';
 $title = '造型列表';
 
 $perPage = 20; # 一頁最多有幾筆
@@ -57,6 +58,7 @@ if ($totalRows > 0) {
 
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 
 <div class="container">
@@ -114,6 +116,7 @@ if ($totalRows > 0) {
 
     <div class="row">
         <div class="col">
+            <button class="btn btn-danger mb-3" type="submit"><a class="nav-link <?= $pageName == 'style' ? 'active' : '' ?>" href="style_add.php">新增產品造型</a></button>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -139,7 +142,6 @@ if ($totalRows > 0) {
                     <?php endforeach ?>
                 </tbody>
             </table>
-            <button class="btn btn-danger" type="submit"><a class="nav-link <?= $pageName == 'style' ? 'active' : '' ?>" href="style_add.php">新增產品造型</a></button>
         </div>
     </div>
 

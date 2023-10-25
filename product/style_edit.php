@@ -22,10 +22,12 @@ $rows2 = $pdo->query($sql2)->fetchAll();
 
 
 #echo json_encode($row, JSON_UNESCAPED_UNICODE);
+$partName ='product';
 $title = '編輯造型資料';
 
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 <style>
     form .form-text {

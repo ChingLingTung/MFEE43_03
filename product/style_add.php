@@ -2,6 +2,7 @@
 
 require './parts/connect_db.php';
 $title = '新增商品造型';
+$partName ='product';
 $pageName = 'product_style_add';
 
 
@@ -12,6 +13,7 @@ $rows2 = $pdo->query($sql2)->fetchAll();
 #echo json_encode($rows2, JSON_UNESCAPED_UNICODE);
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 
 <div class="container">
