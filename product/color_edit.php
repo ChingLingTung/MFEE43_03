@@ -22,10 +22,13 @@ $rows3 = $pdo->query($sql3)->fetchAll();
 
 
 #echo json_encode($row, JSON_UNESCAPED_UNICODE);
+
 $title = '編輯顏色資料';
+$partName ='product';
 
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 <style>
     form .form-text {
@@ -124,7 +127,7 @@ $title = '編輯顏色資料';
                     data
                 });
                 if (data.success) {
-                    alert('資料編輯成功');
+                    alert('顏色修改成功');
                     location.href = "./color_list.php"
                 } else {
                     alert('資料沒有修改');
