@@ -22,10 +22,12 @@ $rows4 = $pdo->query($sql4)->fetchAll();
 
 
 #echo json_encode($row, JSON_UNESCAPED_UNICODE);
+$partName ='product';
 $title = '編輯照片資料';
 
 ?>
 <?php include './parts/html-head.php' ?>
+<?php include './parts/main_part1.php' ?>
 <?php include './parts/navbar.php' ?>
 <style>
     form .form-text {
@@ -126,7 +128,7 @@ $title = '編輯照片資料';
                     data
                 });
                 if (data.success) {
-                    alert('資料編輯成功');
+                    alert('照片修改成功');
                     location.href = "./picture_list.php"
                 } else {
                     alert('資料沒有修改');
