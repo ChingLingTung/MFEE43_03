@@ -1,9 +1,9 @@
 <?php
 
 $db_host = "localhost";
-$db_name = "product_db";
+$db_name = "rides";
 $db_user = "root";
-$db_pass = "root";
+$db_pass = "";
 
 # data source name
 $dsn = "mysql:host={$db_host};dbname={$db_name};charset=utf8mb4";

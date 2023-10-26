@@ -62,8 +62,8 @@ function define(html) {
       for (let [key, value] of formData.entries()) {
         payload[key] = value;
       }
-
-      fetch("http://localhost/cms/create-user.php", {
+      fetch("http://[::1]/135/customer/src/php/create-user.php", {
+      // fetch("http://localhost/cms/create-user.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

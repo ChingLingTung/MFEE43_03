@@ -23,7 +23,8 @@ function define(html) {
     }
 
     getUserData() {
-      fetch("http://localhost/cms/get-user-info.php", {
+      fetch("http://[::1]/135/customer/src/php/get-user-info.php", {
+      // fetch("http://localhost/cms/get-user-info.php", {
         method: "GET",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -110,7 +111,8 @@ function define(html) {
     deleteUser(obj) {
       if (confirm(`確認刪除${obj.name}(代號：${obj.id})？`)) {
         const xhttp = new XMLHttpRequest();
-        xhttp.open("DELETE", `http://localhost/cms/delete-user.php?id=${obj.id}`, true);
+        xhttp.open("DELETE", `http://[::1]/135/customer/src/php/delete-user.php?id=${obj.id}`, true);
+        // xhttp.open("DELETE", `http://localhost/cms/delete-user.php?id=${obj.id}`, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.send();
 

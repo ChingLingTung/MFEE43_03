@@ -65,7 +65,8 @@ function define(html) {
         payload[ele.name] = ele.value;
       });
 
-      fetch("http://localhost/cms/update-user-info.php", {
+      fetch("http://[::1]/135/customer/src/php/update-user-info.php", {
+        // fetch("http://localhost/cms/update-user-info.php", {
         method: "PATCH",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",

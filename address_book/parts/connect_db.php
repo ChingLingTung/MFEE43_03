@@ -1,7 +1,7 @@
 <?php
 
 $db_host = "localhost";
-$db_name = "ticket_db";
+$db_name = "rides";
 $db_user = "root";
 $db_pass = "";
 

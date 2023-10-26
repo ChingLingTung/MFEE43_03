@@ -14,7 +14,7 @@
   }
 
   function delete_user($id) {
-    $dc = new DatabaseConnector("mfee43_03");
+    $dc = new DatabaseConnector("rides");
     $sql = "DELETE FROM `user_table` WHERE u_id={$id} ";
     $result = $dc->exec_sql($sql);
 

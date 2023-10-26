@@ -17,7 +17,7 @@
   }
 
   function post_db($form_data) {
-    $dc = new DatabaseConnector("mfee43_03");
+    $dc = new DatabaseConnector("rides");
     $sql = "INSERT INTO `user_table` (`u_name`, `u_acco`, `u_birth`, `u_email`, `u_pw`, `u_tel`, `u_addr`) VALUES ";
     $sql .= "('{$form_data->name}', '{$form_data->acco}', '{$form_data->birth}', '{$form_data->email}', '{$form_data->pw}', '{$form_data->tel}', '{$form_data->addr}')";
     $result = $dc->exec_sql($sql);

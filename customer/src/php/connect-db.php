@@ -7,10 +7,14 @@
     public $conn;
 
     function __construct($dbname) {
+      // $this->servername = "localhost";
       $this->servername = "localhost";
-      $this->username = "db_admin";
-      $this->password = "P@ssw0rd";
+      // $this->username = "db_admin";
+      $this->username = "root";
+      // $this->password = "P@ssw0rd";
+      $this->password = "";
       $this->dbname = $dbname;
+      // $this->dbname = $dbname;
 
       $this->connect_db();
     }

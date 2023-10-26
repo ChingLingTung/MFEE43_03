@@ -15,7 +15,7 @@
   }
 
   function post_db($form_data) {
-    $dc = new DatabaseConnector("mfee43_03");
+    $dc = new DatabaseConnector("rides");
     $set = "";
     foreach ($form_data as $key => $value) {
       if ($key !== "id") {

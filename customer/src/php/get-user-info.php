@@ -4,11 +4,13 @@
   header('Access-Control-Allow-Origin: *');
   header('Content-Type: application/x-www-form-urlencoded; charset=utf-8');
   header("Access-Control-Allow-Methods: GET");
+  header("Access-Control-Allow-Headers: Origin, Methods, Content-Type");
+
 
   get_db();
 
   function get_db() {
-    $dc = new DatabaseConnector("mfee43_03");
+    $dc = new DatabaseConnector("rides");
     $sql = "SELECT * FROM `user_table` ORDER BY u_id desc";
     $result = $dc->exec_sql($sql);
   
