@@ -1,6 +1,4 @@
-<?php
-  include "./../main_part1.php";
-?>
+
 
 <style type="text/css">
   body, html {
