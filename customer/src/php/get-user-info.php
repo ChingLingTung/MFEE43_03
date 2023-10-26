@@ -1,24 +1,16 @@
 <?php
+  include "connect-db.php";
+
   header('Access-Control-Allow-Origin: *');
-  header('Content-Type: application/json; charset=utf-8');
+  header('Content-Type: application/x-www-form-urlencoded; charset=utf-8');
+  header("Access-Control-Allow-Methods: GET");
 
   get_db();
 
   function get_db() {
-    $servername = "localhost";
-    $username = "db_admin";
-    $password = "P@ssw0rd";
-    $dbname = "mfee43_03";
-  
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-  
-    $sql = "SELECT * FROM `user_table`";
-    $result = $conn->query($sql);
+    $dc = new DatabaseConnector("mfee43_03");
+    $sql = "SELECT * FROM `user_table` ORDER BY u_id desc";
+    $result = $dc->exec_sql($sql);
   
     if ($result->num_rows > 0) {
       $jsonObj = [];
@@ -31,6 +23,9 @@
         $object->email = $row["u_email"];
         $object->pw = $row["u_pw"];
         $object->tel = $row["u_tel"];
+        $object->addr = $row["u_addr"];
+        $object->createtime = $row["u_createtime"];
+        $object->updatetime = $row["u_updatetime"];
         array_push($jsonObj, $object);
       }
       gen_http_resp($jsonObj);
@@ -40,7 +35,7 @@
       gen_http_resp($resp);
     }
     
-    $conn->close();
+    $dc->disconnect_db();
   }
 
   function gen_http_resp($data) {
