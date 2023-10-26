@@ -137,7 +137,7 @@ if ($totalRows > 0) {
                             <!-- <td><?= $r['PDpicture_name'] ?></td> -->
 
                             <td style="width: 300px">  
-                                <img src="/my-proj/add+cate-HTML-1/uploads/<?= $r['PDpicture_name']  ?>" id="PDpicture_name_img" width="100%" />
+                                <img src="/MFEE43_03/product/uploads/<?= $r['PDpicture_name']  ?>" id="PDpicture_name_img" width="100%" />
                             </td>
 
                             <th><a href="picture_edit.php?PDpicture_id=<?= $r['PDpicture_id'] ?>">
