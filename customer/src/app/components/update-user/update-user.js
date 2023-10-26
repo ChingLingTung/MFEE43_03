@@ -23,7 +23,10 @@ function define(html) {
     }
 
     connectedCallback() {
-      this.myModal = new bootstrap.Modal(this.shadowRoot.getElementById("update-form-modal"), {});
+      this.myModal = new bootstrap.Modal(
+        this.shadowRoot.getElementById("update-form-modal"),
+        {}
+      );
       this.myForm = this.shadowRoot.querySelector("form[id='update-form']");
 
       this.shadowRoot.querySelectorAll("form input").forEach((element) => {
@@ -36,7 +39,7 @@ function define(html) {
         }
       });
 
-      this.shadowRoot.querySelector("button[type='submit']").addEventListener("click", (event) => {
+      this.myForm.addEventListener("submit", (event) => {
         event.preventDefault();
         this.submit();
       });
@@ -52,7 +55,10 @@ function define(html) {
         if (ele) {
           ele.value =
             ele.type === "date"
-              ? `${value.substring(0, 4)}-${value.substring(4, 6)}-${value.substring(6)}`
+              ? `${value.substring(0, 4)}-${value.substring(
+                  4,
+                  6
+                )}-${value.substring(6)}`
               : value;
         }
       }
@@ -61,9 +67,11 @@ function define(html) {
 
     submit() {
       let payload = {};
-      this.myForm.querySelectorAll('input[data-dirty="true"]').forEach((ele) => {
-        payload[ele.name] = ele.value;
-      });
+      this.myForm
+        .querySelectorAll('input[data-dirty="true"]')
+        .forEach((ele) => {
+          payload[ele.name] = ele.value;
+        });
 
       fetch("http://[::1]/135/customer/src/php/update-user-info.php", {
         // fetch("http://localhost/cms/update-user-info.php", {
@@ -83,7 +91,9 @@ function define(html) {
           if (data.type === "SUCCESS") {
             alert(`更新成功`);
             this.myModal.hide();
-            this.dispatchEvent(new CustomEvent("send", { detail: { action: "FORM_SUBMITTED" } }));
+            this.dispatchEvent(
+              new CustomEvent("send", { detail: { action: "FORM_SUBMITTED" } })
+            );
           } else {
             alert(`更新失敗`);
           }

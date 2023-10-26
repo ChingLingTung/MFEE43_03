@@ -24,12 +24,17 @@ function define(html) {
     }
 
     connectedCallback() {
-      this.myModal = new bootstrap.Modal(this.shadowRoot.getElementById("create-form-modal"), {});
+      this.myModal = new bootstrap.Modal(
+        this.shadowRoot.getElementById("create-form-modal"),
+        {}
+      );
       this.myForm = this.shadowRoot.querySelector("form[id='my-form']");
 
-      this.shadowRoot.getElementById("create-btn").addEventListener("click", (event) => {
-        this.myModal.show();
-      });
+      this.shadowRoot
+        .getElementById("create-btn")
+        .addEventListener("click", (event) => {
+          this.myModal.show();
+        });
 
       this.shadowRoot.querySelectorAll("form input").forEach((element) => {
         element.addEventListener("input", (event) => {
@@ -38,7 +43,7 @@ function define(html) {
         });
       });
 
-      this.shadowRoot.querySelector("button[type='submit']").addEventListener("click", (event) => {
+      this.myForm.addEventListener("submit", (event) => {
         event.preventDefault();
         this.checkForm();
       });
@@ -63,7 +68,7 @@ function define(html) {
         payload[key] = value;
       }
       fetch("http://[::1]/135/customer/src/php/create-user.php", {
-      // fetch("http://localhost/cms/create-user.php", {
+        // fetch("http://localhost/cms/create-user.php", {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
@@ -80,7 +85,11 @@ function define(html) {
           if (data.type === "SUCCESS") {
             alert(`用戶${payload.name}新增成功`);
             this.myModal.hide();
-            this.dispatchEvent(new CustomEvent("send", { detail: { action: "FORM_SUBMITTED" } }));
+            this.dispatchEvent(
+              new CustomEvent("send", { detail: { action: "FORM_SUBMITTED" } })
+            );
+          } else if (data.type === "FAILED" && data.msg === "MULTI_ACCO") {
+            alert(`用戶${payload.name}帳號${payload.acco}重複`);
           } else {
             alert(`用戶${payload.name}新增失敗`);
           }

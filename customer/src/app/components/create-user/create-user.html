@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="./components/create-user/create-user.css" />
 <template id="create-form">
-  <button id="create-btn" class="btn btn-success">新增使用者</button>
+  <button id="create-btn" class="btn btn-success">
+    <i class="bi bi-plus-circle"></i>
+    新增使用者
+  </button>
 
   <div
     class="modal fade"
@@ -31,14 +34,16 @@
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">密碼：</label>
-                <input
-                  id="password"
-                  type="password"
-                  name="pw"
-                  class="form-control"
-                  placeholder="請輸入密碼"
-                  required
-                />
+                <div class="input-group">
+                  <input
+                    id="password"
+                    type="password"
+                    name="pw"
+                    class="form-control"
+                    placeholder="請輸入密碼"
+                    required
+                  />
+                </div>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">密碼確認：</label>
@@ -116,8 +121,16 @@
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-          <button type="submit" class="btn btn-primary">送出</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            取消
+          </button>
+          <button type="submit" class="btn btn-primary" form="my-form">
+            送出
+          </button>
         </div>
       </div>
     </div>

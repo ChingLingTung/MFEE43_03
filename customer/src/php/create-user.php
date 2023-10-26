@@ -12,8 +12,24 @@
       $form_data = json_decode(file_get_contents('php://input'));
       $form_data->birth = str_replace("-", "", $form_data->birth);
       $form_data->pw = sha1($form_data->pw);
-      post_db($form_data);
+      if (!check_acco_exist($form_data->acco)) {
+        post_db($form_data);
+      } else {
+        echo json_encode(['type' => 'FAILED', 'msg' => 'MULTI_ACCO']);
+      }
     }
+  }
+
+  function check_acco_exist($acco) {
+    $dc = new DatabaseConnector("rides");
+    $sql = "SELECT `u_acco` FROM `user_table` WHERE `u_acco` = '{$acco}'";
+    $result = $dc->exec_sql($sql);
+    $dc->disconnect_db();
+
+    if ($result->num_rows > 0) {
+      return true;
+    }
+    return false;
   }
 
   function post_db($form_data) {
