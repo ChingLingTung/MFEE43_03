@@ -12,9 +12,9 @@ $formTitle='設施主題';
 <?php include "./parts/main_navbar.php"?>
 <?php include "./parts/navbar.php"?>
 
-<div class="container">
+<div class="container mt-3">
     <div class="border border-primary-subtle border-4 rounded p-3 mb-3 border-opacity-50 h-100">
-        <h5 class="mb-5">新增設施主題資料</h5>
+        <h5 class="mb-5">新增設施主題</h5>
         <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
         為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
         <form name="form1" id="form1" class="needs-validation" data-toggle="validator" onsubmit="sendData(event)" >
