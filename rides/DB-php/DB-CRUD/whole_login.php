@@ -43,7 +43,7 @@ if (isset($_POST['account'])) {
 <body>
 <?php if (isset($_SESSION['admin'])) : ?>
   <h2 class="text-center"><?= $_SESSION['admin']['nickname'] ?> 您好</h2>
-    <p><a class="text-center" href="whole_logout.php">登出</a></p>
+    <p class="text-center"><a href="whole_logout.php">登出</a></p>
   <?php else : ?>
     <div style="color:red"><?= $errInfo ?? '' ?></div>
 <div class="container">
