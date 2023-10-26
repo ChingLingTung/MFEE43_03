@@ -21,7 +21,7 @@ $partName='';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link fs-5 ms-3 <?= $partName=='user'? 'badge text-bg-primary mt-1':'' ?>" href="">會員中心</a>
+              <a class="nav-link fs-5 ms-3 <?= $partName=='user'? 'badge text-bg-primary mt-1':'' ?>" href="../../../customer/src/php/load.php">會員中心</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fs-5 ms-3 <?= $partName=='ticket'? 'badge text-bg-primary mt-1':'' ?>" href="../../../address_book/ticketList.php">購票系統</a>
@@ -34,7 +34,21 @@ $partName='';
             </li>
             
           </ul>
-          
+          <ul class="navbar-nav mb-2 mb-lg-0">
+          <?php if (isset($_SESSION['admin'])) : ?>
+            <li class="nav-item">
+              <a class="nav-link"><?= $_SESSION['admin']['nickname'] ?></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?= $pageName == 'login' ? 'active' : '' ?>" href="logout.php">登出</a>
+            </li>
+          <?php else : ?>
+            <li class="nav-item">
+              <a class="nav-link <?= $pageName == 'login' ? 'active' : '' ?>" href="login.php">登入</a>
+            </li>
+          <?php endif ?>
+          </li>
+        </ul>
         </div>
       </div>
     </nav>
