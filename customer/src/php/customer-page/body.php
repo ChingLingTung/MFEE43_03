@@ -23,5 +23,5 @@
   }
 </style>
 <div class="row-container">
-  <iframe src="http://127.0.0.1:5500/src/app/index.html" class="grow-iframe"></iframe>
+  <iframe src="http://127.0.0.1:5500/customer/src/app/index.html" class="grow-iframe"></iframe>
 </div>
