@@ -24,13 +24,13 @@ $partName='';
               <a class="nav-link fs-5 ms-3 <?= $partName=='user'? 'badge text-bg-primary mt-1':'' ?>" href="">會員中心</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-5 ms-3 <?= $partName=='ticket'? 'badge text-bg-primary mt-1':'' ?>" href="./list.php">購票系統</a>
+              <a class="nav-link fs-5 ms-3 <?= $partName=='ticket'? 'badge text-bg-primary mt-1':'' ?>" href="./ticketList.php">購票系統</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-5 ms-3 <?= $partName=='ride'? 'badge text-bg-primary mt-1':'' ?>" href="./ride_list.php">遊樂設施</a>
+              <a class="nav-link fs-5 ms-3 <?= $partName=='ride'? 'badge text-bg-primary mt-1':'' ?>" href=".././rides/DB-PHP/DB-CRUD/ride_list.php">遊樂設施</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-5 ms-3 <?= $partName=='product'? 'badge text-bg-primary mt-1':'' ?>" href="">商品</a>
+              <a class="nav-link fs-5 ms-3 <?= $partName=='product'? 'badge text-bg-primary mt-1':'' ?>" href="../product/product_list.php">商品</a>
             </li>
             
           </ul>
