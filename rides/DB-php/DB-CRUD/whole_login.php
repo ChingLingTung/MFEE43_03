@@ -4,19 +4,20 @@ $pageName = 'login';
 $title = '登入';
 $formTitle = '登入頁面'
 ?>
+
+<?php include './parts/html_head.php' ?>
+<?php include './whole_index_navbar.php' ?>
 <?php
-
-
 $users = [
   '123456' => [
     'hash' => '$2y$10$nFQ6d.SgqFcujeQY6Swq6eQCGEigPV46BZYvs9JjJK4at7vc92kjG',
     'nickname' => '管理員某某',
-  ]
+  ],
 ];
 
 # 先判斷是否有表單資料
 if (isset($_POST['account'])) {
-  $errInfo = "帳號或密碼錯誤";
+  $errInfo = " ";
 
   # 帳號是否正確
   if (isset($users[$_POST['account']])) {
@@ -38,10 +39,10 @@ if (isset($_POST['account'])) {
 }
 ?>
 
-<?php include "./parts/html_head.php"?>
 
+<body>
 <?php if (isset($_SESSION['admin'])) : ?>
-    <h2><?= $_SESSION['admin']['nickname'] ?> 您好</h2>
+  <h2 class="text-center"><?= $_SESSION['admin']['nickname'] ?> 您好</h2>
     <p><a href="whole_logout.php">登出</a></p>
   <?php else : ?>
     <div style="color:red"><?= $errInfo ?? '' ?></div>
@@ -54,18 +55,18 @@ if (isset($_POST['account'])) {
                     <h5 class="card-title">管理員登入</h5>
                     <!-- 下方script內重設定表單傳送方式，因此不用在form標籤內加action="add-api.php"、method="post"，會被下方的設定覆蓋
                     為了要設定目標表單，要給表單加一個名字name="form1"，設定送出時要執行sendData()的方法 -->
-                    <form method="post" name="form1" onsubmit="sendData(event)" >
+                    <form method="post" name="form1"  >
                     <!-- form標籤裡要加上enctype="multipart/form-data"的設定資料才能傳送出去，這邊透過下方script內設定 -->
 
                         <div class="mb-3">
-                            <label for="email" class="form-label">帳號</label>
-                            <input type="text" class="form-control" id="email" name="email">
-                            <div class="form-text"></div>
+                            <label for="account" class="form-label">帳號</label>
+                            <input type="text" class="form-control" id="account" name="account" value="<?= htmlentities($_POST['account'] ?? '') ?>">
+                            
                         </div>            
                         <div class="mb-3">
                             <label for="password" class="form-label">密碼</label>
-                            <input type="password" class="form-control" id="password" name="password">
-                            <div class="form-text"></div>
+                            <input type="password" class="form-control" id="password" name="password" value="<?= htmlentities($_POST['password'] ?? '') ?>">
+                            
                         </div>            
                         <button type="submit" class="btn btn-primary">登入</button>
                     </form>
