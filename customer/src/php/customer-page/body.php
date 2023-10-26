@@ -1,5 +1,5 @@
 <?php
-  // include your navbar here
+  include "./../main_part1.php";
 ?>
 
 <style type="text/css">
