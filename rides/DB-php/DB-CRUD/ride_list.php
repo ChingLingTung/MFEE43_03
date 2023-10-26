@@ -112,7 +112,7 @@ enum ThrillerRating:string{
             </div>
             <div class="col-12 d-flex justify-content-end"><button type="submit" class="btn btn-outline-primary">搜尋</button></div>
         </form>
-    </div>
+    </div> -->
 <div class="row">
     <div class="col">
     <nav aria-label="Page navigation example">
