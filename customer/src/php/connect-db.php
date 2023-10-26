@@ -8,8 +8,8 @@
 
     function __construct($dbname) {
       $this->servername = "localhost";
-      $this->username = "db_admin";
-      $this->password = "P@ssw0rd";
+      $this->username = "123456";
+      $this->password = "";
       $this->dbname = $dbname;
 
       $this->connect_db();
