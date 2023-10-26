@@ -68,7 +68,7 @@ enum ThrillerRating:string{
 <?php include "./parts/navbar.php"?>
 
 <div class="container">
-    <div>
+    <!-- <div>
         <h5 class="mt-4 mb-4">進階搜尋</h5>
         <form action="" class="row gx-3 gy-2 mb-4" name="ride_form" id="ride_form">
             <div class="col-sm-3">
@@ -99,7 +99,7 @@ enum ThrillerRating:string{
                 <?php
                 endforeach ?>
             </select>
-            </div>
+            </div> -->
             <div class="col-sm-3">
             <label for="theme_id" class="form-label" >設施所屬主題名稱</label>
             <select class="form-select" id="theme_id" name="theme_id" >
