@@ -68,6 +68,27 @@ if ($totalRows > 0) {
     $rows = $pdo->query($sql)->fetchAll();
 }
 
+$sql1 = "SELECT * FROM product_category";
+$rows1 = $pdo->query($sql1)->fetchAll();
+
+// 預設主分類 透過 $row 中記錄已選擇的id 抓出 $rows中的 parent_id
+// foreach($rows1 as $r1){
+//   if($r1['parent_PDcategory_id'] == 0){
+//     $mainCategory_id = $r1['parent_PDcategory_id'];
+//   }else{
+//     // $subCategory_id = $r1['parent_PDcategory_id'];
+//   }
+// };
+
+
+// 預設子分類 透過 mainCagetory 抓出同 主分類的子分類
+// $subCategory_id_array = [];
+// foreach($rows1 as $r2){
+//     if($r2['parent_PDcategory_id'] == $mainCategory_id){
+//        array_push($subCategory_id_array,$r2['PDcategory_id']);
+//     }
+// }
+
 
 ?>
 <?php include './parts/html-head.php' ?>
@@ -136,7 +157,8 @@ if ($totalRows > 0) {
             <!-- <th scope="col">編號</th> -->
             <th scope="col">商品編號</th>
             <th scope="col">商品名稱</th>
-            <th scope="col">商品類別</th>
+            <th scope="col">商品主類別</th>
+            <th scope="col">商品副類別</th>
             <th scope="col">商品造型</th>
             <th scope="col">商品顏色</th>
             <th scope="col">商品單價</th>
@@ -155,7 +177,14 @@ if ($totalRows > 0) {
             <!-- <td><?= $r['product_id'] ?></td> -->
             <td><?= $r['product_id'] ?></td>
             <td><?= $r['product_name'] ?></td>
-            <td><?= $r['PDcategory_name'] ?></td>
+            <!-- <td><?= $r['parent_PDcategory_id'] ?></td> -->
+            <!--已經知道parent的id了，用category表格使用foreach迴圈，跑到第五筆後會顯示該筆名字-->
+            <?php foreach($rows1 as $main):  ?>
+            <?php if ($r['parent_PDcategory_id'] == $main['PDcategory_id']) :  ?>
+            <td value="<?= $main['PDcategory_id'] ?>"><?= $main['PDcategory_name'] ?></td>
+            <?php endif;?>
+            <?php endforeach;?>
+            <td><?= $r['PDcategory_name'] ?></td> 
             <td><?= $r['PDstyle_name'] ?></td>
             <td><?= $r['PDcolor_name'] ?></td>
             <td><?= $r['product_price'] ?></td>
@@ -172,8 +201,6 @@ if ($totalRows > 0) {
       </table>
     </div>
   </div>
-
-
 </div>
 
 
@@ -185,5 +212,6 @@ if ($totalRows > 0) {
       location.href = 'product_delete.php?product_id=' + product_id;
     }
   }
+
 </script>
 <?php include './parts/html-foot.php' ?>
