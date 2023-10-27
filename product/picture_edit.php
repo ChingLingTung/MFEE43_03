@@ -165,7 +165,7 @@ $title = '編輯照片資料';
                     if (uploadFieldId) {
                         document.form1[uploadFieldId].value = data.file;
                         document.querySelector(`#${uploadFieldId}_img`).src =
-                            "/my-proj/add+cate-HTML-1/uploads/" + data.file;
+                            "/MFEE43_03/product/uploads/" + data.file;
                     }
                 }
                 uploadFieldId = null;

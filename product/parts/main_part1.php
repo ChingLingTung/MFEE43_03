@@ -21,10 +21,10 @@ $partName='';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link fs-5 ms-3 <?= $partName=='user'? 'badge text-bg-primary mt-1':'' ?>" href="">會員中心</a>
+              <a class="nav-link fs-5 ms-3 <?= $partName=='user'? 'badge text-bg-primary mt-1':'' ?>" href="./../customer/src/php/load.php">會員中心</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link fs-5 ms-3 <?= $partName=='ticket'? 'badge text-bg-primary mt-1':'./list.php' ?>" href="">購票系統</a>
+              <a class="nav-link fs-5 ms-3 <?= $partName=='ticket'? 'badge text-bg-primary mt-1':'' ?>" href="../address_book/ticketList.php">購票系統</a>
             </li>
             <li class="nav-item">
               <a class="nav-link fs-5 ms-3 <?= $partName=='ride'? 'badge text-bg-primary mt-1':'' ?>" href=".././rides/DB-PHP/DB-CRUD/ride_list.php">遊樂設施</a>

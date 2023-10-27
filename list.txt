@@ -1,0 +1,228 @@
+戈Ж PATH
+合盒跋腹 B428-A4B2
+C:.
+  list.txt
+  
+.vscode
+      settings.json
+      
+address_book
+    expressCate.php
+    login.php
+    logout.php
+    orderAdd-api.php
+    orderAdd.php
+    orderDelete.php
+    orderEdit-api.php
+    orderEdit.php
+    orderList.php
+    tcCate.php
+    ticketAdd-api.php
+    ticketAdd.php
+    ticketDelete.php
+    ticketEdit-api.php
+    ticketEdit.php
+    ticketList.php
+    ticketListAdd_cate1-api.php
+    ticketListAdd_cate1.php
+    ticketListAdd_cate2-api.php
+    ticketListAdd_cate2.php
+    ticketListDelete_cate1.php
+    ticketListDelete_cate2.php
+    ticketListEdit_cate1-api.php
+    ticketListEdit_cate1.php
+    ticketListEdit_cate2-api.php
+    ticketListEdit_cate2.php
+    ticketList_cate1.php
+    ticketList_cate2.php
+    
+  parts
+          connect_db.php
+          html_foot.php
+          html_head.php
+          main_part.php
+          navbar.php
+          scripts.php
+          
+customer
+    customer-page.php
+    
+  sql
+        create_db_admin.sql
+        mfee43_03.sql
+        
+  src
+      app
+          index.html
+          main.js
+          styles.css
+          
+        components
+            create-admin
+                  create-user.css
+                  create-user.html
+                  create-user.js
+                  
+            create-user
+                  create-user.css
+                  create-user.html
+                  create-user.js
+                  
+            get-customer
+                  get-customer.css
+                  get-customer.html
+                  get-customer.js
+                  
+            nav-bar
+                  nav-bar.css
+                  nav-bar.html
+                  nav-bar.js
+                  
+            update-user
+                    update-user.css
+                    update-user.html
+                    update-user.js
+                    
+      php
+            connect-db.php
+            create-user.php
+            delete-user.php
+            get-user-info.php
+            load.php
+            update-user-info.php
+            
+          customer-page
+                  body.php
+                  footer.php
+                  header.php
+                  
+product
+    color_add-api.php
+    color_add.php
+    color_delete.php
+    color_edit-api.php
+    color_edit.php
+    color_list.php
+    login.php
+    logout.php
+    picture_add-api.php
+    picture_add.php
+    picture_delete.php
+    picture_edit-api.php
+    picture_edit.php
+    picture_list.php
+    product_add-api.php
+    product_add.php
+    product_cate2_add-api.php
+    product_cate2_add.php
+    product_cate2_delete.php
+    product_cate2_edit-api.php
+    product_cate2_edit.php
+    product_cate2_list.php
+    product_delete.php
+    product_edit-api.php
+    product_edit.php
+    product_list.php
+    style_add-api.php
+    style_add.php
+    style_delete.php
+    style_edit-api.php
+    style_edit.php
+    style_list.php
+    upload-img-api.php
+    
+  parts
+        connect_db.php
+        html-foot.php
+        html-head.php
+        main_part1.php
+        navbar.php
+        scripts.php
+        
+  uploads
+          087ac2430abbc0be63f89da7848bd24e6c3340c1.jpg
+          1dd302c75134aa521e6e38f054212af3e8ef5dfa.jpg
+          60c6ee9c02d8e52bc5a739bbae1539fdefdb9f82.jpg
+          653e64c2ffd5e2c1dcd6de7eb3cac328fee252b6.jpg
+          ace11fda86fa860a8b6a161c435fcf004251df2b.jpg
+          b36b22fa614b46070823be52772b1403637139bf.png
+          b43b9d0f2cd1682d863d0571e744cd116b073956.jpg
+          b5055482ecae44eadaf3d4b18f1fbd3c6af9a29f.jpg
+          edfeb5886a9fcda95af395273181ba2fae53627c.jpg
+          f783afc984ce68342a4833c796c902b56addbb36.jpg
+          fb67c1d80b0bae7b32075b18e2fc6c2401e8a3bc.jpg
+          ff762921413636594b695d3aabf0dd7feccf2278.jpg
+          
+rides
+    DB-php
+          echo-post.php
+          
+        DB-CRUD
+            add.php
+            base.php
+            cate2.php
+            delete.php
+            edit-api.php
+            edit.php
+            enum_ThrillerRating.php
+            login.php
+            maintenance_add.php
+            maintenance_category_add.php
+            maintenance_category_list.php
+            maintenance_list.php
+            restaurant_reservation_add.php
+            restaurant_reservation_list.php
+            ride_add-api.php
+            ride_add.php
+            ride_category_add-api.php
+            ride_category_add.php
+            ride_category_delete.php
+            ride_category_edit-api.php
+            ride_category_edit.php
+            ride_category_list.php
+            ride_delete.php
+            ride_edit-api.php
+            ride_edit.php
+            ride_list.php
+            ride_search-api.php
+            ride_support_add-api.php
+            ride_support_add.php
+            ride_support_delete.php
+            ride_support_edit-api.php
+            ride_support_edit.php
+            ride_support_list.php
+            shop_add.php
+            shop_list.php
+            shop_opentime_add.php
+            shop_opentime_list.php
+            theme_add-api.php
+            theme_add.php
+            theme_delete.php
+            theme_edit-api.php
+            theme_edit.php
+            theme_list.php
+            upload-img-api-1.php
+            upload-img-api-2.php
+            whole.login.php
+            whole_index.php
+            whole_index_navbar.php
+            whole_login.php
+            whole_logout.php
+            
+          parts
+                  connect_db.php
+                  four_part_navbar.php
+                  html_foot.php
+                  html_head.php
+                  main_navbar.php
+                  navbar.php
+                  scripts.php
+                  whole_login.php
+                  
+        DEMO_IMG
+              公.png
+              公2.png
+              公3.png
+              公4.png
+              
+        upload_img

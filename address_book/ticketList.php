@@ -1,7 +1,7 @@
 <?php
 require './parts/connect_db.php';
 $pageName = 'ticketList';
-$title = '票券列表';
+$title = '商品管理';
 $partName='ticket';
 
 $perPage = 10; //一頁最多有幾筆
@@ -12,7 +12,7 @@ if ($page < 1) {
   exit; #直接結束這支php
 }
 
-$t_sql = "SELECT COUNT(*) FROM ticketcategory2";
+$t_sql = "SELECT COUNT(*) FROM productlist";
 #y總筆數
 $totalRows = $pdo->query($t_sql)->fetch(PDO::FETCH_NUM)[0];
 
@@ -28,7 +28,10 @@ if ($totalRows > 0) {
     exit; #直接結束這支php
   }
   $sql = sprintf(
-    "SELECT * FROM ticketcategory2 ORDER BY tc2_id DESC LIMIT %s, %s",
+    "SELECT * FROM productlist p
+    JOIN ticketcategory1 t1 ON p.tc1_id = t1.tc1_id
+    JOIN ticketcategory2 t2 ON p.tc2_id = t2.tc2_id
+    ORDER BY sid DESC LIMIT %s, %s",
     ($page - 1) * $perPage,
     $perPage
   );
@@ -71,7 +74,7 @@ if ($totalRows > 0) {
   <div class="row">
     <div class="col">
 
-      <button class="btn btn-primary" type="submit"><a class="nav-link <?= $pageName == 'ticketList' ? 'active' : '' ?>" href="ticketListAdd.php">新增票券種類</a></button>
+      <button class="btn btn-primary" type="submit"><a class="nav-link <?= $pageName == 'add' ? 'active' : '' ?>" href="ticketAdd.php">新增票券種類</a></button>
 
       <table class="table table-bordered table-striped">
         <thead>
@@ -79,9 +82,13 @@ if ($totalRows > 0) {
             <th scope="col">
               <i class="fa-solid fa-trash-can"></i>
             </th>
-            <th scope="col">票券編號</th>
+            <th scope="col">#</th>
+            <th scope="col">票券類型</th>
             <th scope="col">票券名稱</th>
-            <th scope="col">金額</th>
+            <th scope="col">售價金額</th>
+            <th scope="col">開始時間</th>
+            <th scope="col">結束時間</th>
+            <th scope="col">描述</th>
             <th scope="col">
               <i class="fa-solid fa-file-pen">
             </th>
@@ -90,13 +97,19 @@ if ($totalRows > 0) {
         <tbody>
           <?php foreach ($rows as $r) : ?>
             <tr>
-              <td><a href="javascript: deleteItem(<?= $r['tc2_id'] ?>)">
+              <td><a href="javascript: deleteItem(<?= $r['sid'] ?>)">
                   <i class="fa-solid fa-trash-can"></i>
                 </a></td>
-              <td><?= $r['tc2_id'] ?></td>
+              <td><?= $r['sid'] ?></td>
+              <td><?= $r['tc1_name'] ?></td>
               <td><?= $r['tc2_name'] ?></td>
               <td><?= $r['tc_amount'] ?></td>
-              <td><a href="ticketListEdit.php?tc2_id=<?= $r['tc2_id'] ?>">
+              <td><?= $r['beginTime'] ?></td>
+              <td><?= $r['endTime'] ?></td>
+              <td><?= htmlentities($r['description']) ?>
+                <!--<?= strip_tags($r['description']) ?> -->
+              </td>
+              <td><a href="ticketEdit.php?sid=<?= $r['sid'] ?>">
                   <i class="fa-solid fa-file-pen">
                 </a></td>
             </tr>
@@ -112,9 +125,9 @@ if ($totalRows > 0) {
 
 <?php include './parts/scripts.php' ?>
 <script>
-  function deleteItem(tc2_id) {
-    if (confirm(`確定刪除編號 ${tc2_id} 資料嗎?`)) {
-      location.href = 'delete.php?tc2_id=' + tc2_id;
+  function deleteItem(sid) {
+    if (confirm(`確定刪除編號 ${sid} 資料嗎?`)) {
+      location.href = 'ticketDelete.php?sid=' + sid;
     }
   }
 </script>

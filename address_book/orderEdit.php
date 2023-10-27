@@ -1,6 +1,6 @@
 <?php
 require './parts/connect_db.php';
-$partName='ticket';
+$partName = 'ticket';
 
 // 取得資料的primary key
 $order_id = isset($_GET['order_id']) ? intval($_GET['order_id']) : 0;
@@ -12,9 +12,13 @@ if (empty($order_id)) {
 
 $sql = "SELECT * FROM orderlist WHERE order_id={$order_id}";
 $sql1 = "SELECT * FROM orderstate";
+$sql2 = "SELECT * FROM ticketcategory1";
+$sql3 = "SELECT * FROM ticketcategory2";
 
 $rows = $pdo->query($sql)->fetch();
 $rows1 = $pdo->query($sql1)->fetchAll();
+$rows2 = $pdo->query($sql2)->fetchAll();
+$rows3 = $pdo->query($sql3)->fetchAll();
 if (empty($rows)) {
   header('Location: orderList.php');
   exit;
@@ -26,6 +30,12 @@ if (empty($rows1)) {
 # echo json_encode($rows, JSON_UNESCAPED_UNICODE);
 
 $title = '訂單資料編輯';
+
+foreach ($rows3 as $ticketcategory2) {
+  if ($ticketcategory2['tc2_id'] == $rows['tc2_id']) {
+    $ticketcategory1 = $ticketcategory2['tc1_id'];
+  }
+}
 
 ?>
 <?php include './parts/html_head.php' ?>
@@ -51,16 +61,28 @@ $title = '訂單資料編輯';
               <input type="text" class="form-control" id="user_name" name="user_name" value="<?= htmlentities($rows['user_name']) ?>">
               <div class="form-text"></div>
             </div>
-            <div class="mb-3">
-              <label for="t_name" class="form-label">票券名稱</label>
-              <input type="text" class="form-control" id="t_name" name="t_name" value="<?= htmlentities($rows['t_name']) ?>">
-              <div class="form-text"></div>
+            <div class="mb-3">新增票券類別</div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">票券類別</span>
+              <select class="form-select" name="tc1_id" id="cate1" onchange="generateCate2List()">
+                <?php foreach ($rows2 as $r2) : ?>
+                  <option value="<?= $r2['tc1_id'] ?>" <?= $r2['tc1_id'] == $ticketcategory1 ? 'selected' : '' ?>><?= $r2['tc1_name'] ?></option>
+                <?php
+                endforeach ?>
+              </select>
             </div>
-            <div class="mb-3">
-              <label for="amount" class="form-label">金額</label>
-              <input type="text" class="form-control" id="amount" name="amount" value="<?= htmlentities($rows['amount']) ?>">
-              <div class="form-text"></div>
+            <div class="input-group mb-3">
+              <span class="input-group-text">票券名稱</span>
+              <select class="form-select" name="tc2_id" id="cate2" onchange="generateamount()" ?>
+                <?php foreach ($rows3 as $r3) : ?>
+                  <?php if ($r3['tc1_id'] == $ticketcategory1) : ?>
+                    <option value="<?= $r3['tc2_id'] ?>" <?= $r3['tc2_id'] == $rows['tc2_id'] ? 'selected' : '' ?>><?= $r3['tc2_name'] ?></option>
+                  <?php endif ?>
+                <?php endforeach ?>
+              </select>
             </div>
+            <label for="tc_amount" class="form-label">金額：</label>
+            <span class="mb-3" id="tc_amount" name="tc_amount"></span>
             <div class="mb-3">
               <label for="orderTime" class="form-label">票券日期</label>
               <input type="date" class="form-control " id="orderTime" name="orderTime" value="<?= htmlentities($rows['orderTime']) ?>">
@@ -71,7 +93,7 @@ $title = '訂單資料編輯';
               <label for="orderState_id" class="form-label">付款狀態</label>
               <select class="form-select" id="orderState_id" name="orderState_id" required="required">
                 <?php foreach ($rows1 as $r) : ?>
-                  <option value="<?= $r['orderState_id'] ?>" <?= $r['orderState_id'] == 1 ? 'selected' : "" ?>><?= $r['stateName'] ?></option>
+                  <option value="<?= $r['orderState_id'] ?>" <?= $r['orderState_id'] == $rows['orderState_id'] ? 'selected' : "" ?>><?= $r['stateName'] ?></option>
                 <?php
                 endforeach ?>
               </select>
@@ -92,12 +114,6 @@ $title = '訂單資料編輯';
 <?php include './parts/scripts.php' ?>
 <script>
   const user_name_in = document.form1.user_name;
-  const t_name_in = document.form1.t_name;
-  const amount_in = document.form1.amount;
-  const orderTime_in = document.form1.orderTime;
-  const endTime_in = document.form1.endTime;
-  const stateName_in = document.form1.stateName;
-  const fields = [user_name_in, t_name_in, amount_in, orderTime_in, endTime_in, stateName_in];
 
   /*function validateEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -121,15 +137,10 @@ $title = '訂單資料編輯';
 
     // TODO: 資料在送出之前, 要檢查格式
     let isPass = true; // 有沒有通過檢查
-    if (user_name_in.value.length < 2) {
+    if (user_name_in.value.length < 1) {
       isPass = false;
       user_name_in.style.border = '2px solid red';
-      user_name_in.nextElementSibling.innerHTML = '請填寫正確的名稱';
-    }
-    if (t_name_in.value.length < 2) {
-      isPass = false;
-      t_name.style.border = '2px solid red';
-      t_name.nextElementSibling.innerHTML = '請填寫正確的類型';
+      user_name_in.nextElementSibling.innerHTML = '請填寫正確的姓名';
     }
 
     /* if (!validateEmail(email_in.value)) {
@@ -177,5 +188,55 @@ $title = '訂單資料編輯';
       })
       .catch(ex => console.log(ex))
   }
+
+  // const initVals = {
+  //   cate1: 1,
+  //   cate2: 1
+  // };
+
+  const cates = <?= json_encode($rows3, JSON_UNESCAPED_UNICODE) ?>;
+
+  const cate1 = document.querySelector('#cate1')
+  const cate2 = document.querySelector('#cate2')
+  const amount = document.querySelector('#amount')
+
+
+
+  function generateCate2List() { //呼叫generateCate2List()
+    const cate1Val = cate1.value; // 主分類的值
+
+    let str = "";
+    //b;
+    for (let item of cates) {
+      if (+item.tc1_id === +cate1Val) { //+ cate1轉成字串
+        str += `<option value="${item.tc2_id}">${item.tc2_name}</option>`;
+        //a;
+      }
+    }
+
+    cate2.innerHTML = str;
+    generateamount();
+  }
+
+  function generateamount() { //呼叫generateCate2List()
+    const cate2Val = cate2.value; // 主分類的值
+
+    let str = "";
+    //b;
+    for (let item of cates) {
+      if (+item.tc2_id === +cate2Val) { //+ cate1轉成字串
+        str += `${item.tc_amount}`;
+        //a;
+      }
+    }
+
+    tc_amount.innerHTML = str;
+
+  }
+
+  // cate1.value = initVals.cate1; // 設定第一層的初始值
+  // generateCate2List(); // 生第二層
+  // cate2.value = initVals.cate2; // 設定第二層的初始值
+  generateamount();
 </script>
 <?php include './parts/html_foot.php' ?>

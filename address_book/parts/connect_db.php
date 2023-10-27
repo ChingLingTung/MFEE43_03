@@ -1,9 +1,13 @@
 <?php
 
 $db_host = "localhost";
+<<<<<<< HEAD
 // $db_name = "ticket_db";
 $db_name = "ride";
 
+=======
+$db_name = "rides";
+>>>>>>> 97c496920cbd5f3fca98ce38f21823e2352e56eb
 $db_user = "root";
 // $db_pass = "";
 $db_pass = "123456";
